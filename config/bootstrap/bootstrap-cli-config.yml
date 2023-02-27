@@ -55,30 +55,53 @@ bootstrap:
     # Mapping between IDP (Azure Active Directory) groups and CDF groups.
     idp-cdf-mappings:
     # Support multiple CDF Projects, like dev/test/prod in one config.
-        - cdf-project: <CDF project name> # i.e. bootcamp-01-test
+        - cdf-project: cdf-bootcamp-33-test # i.e. bootcamp-01-test
           mappings:
               - cdf-group: cdf:root
-                idp-source-id: <AAD Group Object id>
-                idp-source-name: <AAD Group name>
+                idp-source-id: 2b869b91-0f61-43c7-b123-b886da31f9a6
+                idp-source-name: bootcamp-33-test-admin
               - cdf-group: cdf:all:owner
-                idp-source-id: <AAD Group Object Id> # for the AAD Group to be matched to cdf-group
-                idp-source-name: <AAD Group name> # i.e. bootcamp-01-test-all-owner
+                idp-source-id: 34c0f878-6885-421c-ba89-9b2b03547b39 # for the AAD Group to be matched to cdf-group
+                idp-source-name: bootcamp-33-test-all-owner # i.e. bootcamp-01-test-all-owner
               - cdf-group: cdf:all:read
-                idp-source-id: <AAD Group Object Id> # for the AAD Group to be matched to cdf-group
-                idp-source-name: <AAD Group name> # i.e. bootcamp-01-test-all-read
-
+                idp-source-id: 84908ad6-142c-4ebf-9174-080395ecfdc5 # for the AAD Group to be matched to cdf-group
+                idp-source-name: bootcamp-33-test-all-read # i.e. bootcamp-01-test-all-read
+        - cdf-project: cdf-bootcamp-<n>-prod
+          mappings:
+              - cdf-group: cdf:root
+                idp-source-id: b5553af8-d63a-4f39-a62e-51f02aa72cea
+                idp-source-name: bootcamp-33-prod-admin
+              - cdf-group: cdf:all:owner
+                idp-source-id: b84375f6-9a5e-4528-ad66-2791b4acd512
+                idp-source-name: bootcamp-33-prod-all-owner
+              - cdf-group: cdf:all:read
+                idp-source-id: 475180db-f5ff-4b7a-9faf-d61edb41c43f
+                idp-source-name: bootcamp-33-prod-all-read
 
     namespaces:
         # Typical config will have a namespace for data sources ("src") and a namespace for use cases ("uc")
-        - ns-name: <Namespace name>
+        - ns-name: src
           description: Data sources for the Ice Cream Factory # HINT
 
           # Node names will normally follow src:001:srcname or uc:001:usecasename naming convention
           ns-nodes:
-              - node-name: <Node name>
-                description: Data from SAP # HINT
+              - node-name: src:001:sap
+                description: Source 002 for sap data # HINT
+              - node-name: src:002:opcua
+                description: Source 002 for OEE data # HINT
         # HINT: Add another namespace below
+      # Typical config will have separate namespace by data source ("src") and use cases ("uc")
+        - ns-name: uc
+          description: Use cases representing the data/products
 
+          # Description names will normally follow src:001:srcname or uc:001:usecasename naming convention
+          ns-nodes:
+              - node-name: uc:001:oee
+                description: Use case 001 Over all Equipment effectiveness
+                shared-access:
+                    read:
+                        - node-name: src:001:sap
+                        - node-name: src:002:opcua
 
 # de-facto standards for CDF CogniteClient and logger configuration.
 # Following the same parameter structure as the 'Cognite Python Extractor-Utilities'
