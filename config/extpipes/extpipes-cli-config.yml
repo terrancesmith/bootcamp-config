@@ -47,11 +47,11 @@ rawdbs:
                         send-notification: false
     - rawdb-name: src:002:opcua:db
       dataset-external-id: src:002:opcua:ds
-      short-name: db
+      short-name: opcua
       rawtables:
           - rawtable-name: datapoints
             pipelines:
-                - source: csv
+                - source: ice-cream-api
                   schedule: On trigger
                   contacts:
                       - name: Terrance Smith
