@@ -32,20 +32,29 @@ default-contacts:
       send-notification: true
 
 rawdbs:
-  # list of raw-dbs > containing rawtables > containing pipelines
-    - rawdb-name: <node_name>:db
-      dataset-external-id: <node_name>:ds
-      short-name: <Short name for raw DB>
+    - rawdb-name: src:001:sap:db
+      dataset-external-id: src:001:sap:ds
+      short-name: sap
       rawtables:
-          - rawtable-name: <table name>
+          - rawtable-name: assets
             pipelines:
-        # source is a short-name identifying the pipeline source being
-        # a 'db-extractor (db)', an 'Azure Function (az-func)',
-        # or 'Azure Data Factory (adf)', 'Python script (py)', ..
-                - source: <source type>
+                - source: csv
                   schedule: On trigger
                   contacts:
-                      - name: <Contact name>
-                        email: <Contact e-mail>
-                        role: <Contact role>
+                      - name: Terrance Smith
+                        email: terrance.smith907@gmail.com
+                        role: Bootcamp 33 Administrator
+                        send-notification: false
+    - rawdb-name: src:002:opcua:db
+      dataset-external-id: src:002:opcua:ds
+      short-name: db
+      rawtables:
+          - rawtable-name: datapoints
+            pipelines:
+                - source: csv
+                  schedule: On trigger
+                  contacts:
+                      - name: Terrance Smith
+                        email: terrance.smith907@gmail.com
+                        role: Bootcamp 33 Administrator
                         send-notification: false
